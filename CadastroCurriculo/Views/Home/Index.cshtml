@@ -1,0 +1,86 @@
+﻿@model List<CurriculoViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Início";
+}
+
+@if (ViewBag.Mensagem != null)
+{
+    <script>
+        alert("@ViewBag.Mensagem");
+    </script>
+
+}
+
+
+<div>
+    <div class="col-lg-12" id="div-btn-criar">
+        <a id="btn-criar" class="btn btn-success btn-redondo" href="/Home/Create?">Criar Currículo</a>
+    </div>
+</div>
+
+
+<div class="container container-pesquisa">
+    <h3 id="titulo-home">Currículos cadastrados</h3>
+    <form asp-action="Pesquisa">
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="Nome">Nome</label>
+                <input type="text" name="Nome" class="form-control" value="@(!string.IsNullOrEmpty(ViewBag.Nome) ? ViewBag.Nome : "")" />
+            </div>
+
+
+            <div class="col-lg-6">
+                <label for="Area">Categoria</label>
+                <div id="div-btn-pesquisar">
+                    <select id="cb-area" name="Id_Area" class="form-control" asp-items=@ViewBag.Areas></select>
+                    <input id="btn-pesquisar" type="submit" class="btn btn-primary" value="Pesquisar">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        @if (Model?.Count == 0)
+        {
+            <div class="container text-center alert alert-info" role="alert">
+                <p>Nenhum currículo encontrado.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card box-shadow">
+                        <div class="card-body">
+                            <img id="" class="foto-perfil mb-2 mx-2" src="@($"/lib/img/icon{item.Id_Icone}.png")" alt="@($"Ícone do usuário {item.Nome}")">
+                            <h5 class="card-title">@item.Nome</h5>
+                            <h6 class="card-subtitle mb-3">CPF: @item.CPF</h6>
+                            <p class="card-text">@item.Cargo_Pretendido</p>
+                            <p class="card-text text-secondary">@item.Area.Desc_Area</p>
+                        </div>
+                        <div class="card-buttons">
+                            <a class="btn btn-outline-primary btn-redondo" href="/Home/Editar?id=@item.Id_Curriculo">Editar</a>
+                            <a class="btn btn-outline-danger btn-redondo" href="javascript:apagarCurriculo(@item.Id_Curriculo)">Deletar</a>
+                        </div>
+                        <div class="card-buttons">
+                            <a class="btn btn-outline-success btn-redondo" href="/Home/Impressao?id=@item.Id_Curriculo">Visualizar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<script>
+    function apagarCurriculo(id) {
+        if (confirm('Deseja mesmo excluir esse currículo?'))
+            location.href = '/Home/Deletar?Id_Curriculo=' + id;
+    }
+</script>

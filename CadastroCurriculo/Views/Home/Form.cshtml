@@ -1,0 +1,233 @@
+﻿@model CurriculoViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = ViewBag.InfoCRUD.ToString();
+}
+
+
+@if (ViewBag.Mensagem != null)
+{
+    <script>
+        alert("@ViewBag.Mensagem");
+    </script>
+
+}
+
+
+<div class="container">
+
+    <form id="form-cadastro" action="Salvar" method="post">
+        <h3 class="titulo-home mb-4 font-weight-bold">Dados pessoais</h3>
+
+        @if (ViewBag?.Erro)
+        {
+            <span class="text-danger">Preencha os campos obrigatórios</span>
+        }
+
+        <div class="row mb-2">
+
+            <input type="hidden" name="Id_Curriculo" value="@Model.Id_Curriculo" />
+            <input type="hidden" name="operacao" value="@ViewBag.InfoCRUD" />
+
+
+            <div class="col-md-6">
+                <label for="Nome" class="control-label">Nome: </label> <span asp-validation-for="Nome" class="text-danger"></span>
+                <input type="text" Name="Nome" class="form-control mb-2" value="@Model.Nome" />
+
+
+                <label for="CPF" class="control-label">CPF: </label> <span asp-validation-for="CPF" class="text-danger"></span>
+                <input type="text" Name="CPF" id="cpf" class="form-control mb-2" placeholder="000.000.000-00" autocomplete="off" maxlength="14" value="@Model.CPF" />
+
+
+                <label for="Telefone" class="control-label">Telefone: </label>
+                <input type="text" Name="Telefone" id="telefone" class="form-control mb-2" placeholder="(00) 0000-0000" maxlength="15" value="@Model.Telefone" />
+
+                <label for="Email" class="control-label">Email: </label>
+                <input type="text" Name="Email" class="form-control mb-2" placeholder="exemplo@mail.com" value="@Model.Email" />
+
+
+                <label for="Cargo_Pretendido" class="control-label">Cargo Pretendido: </label> <span asp-validation-for="Cargo_Pretendido" class="text-danger"></span>
+                <input type="text" Name="Cargo_Pretendido" class="form-control mb-2" value="@Model.Cargo_Pretendido" />
+
+                <label for="Area">Categoria</label> <span asp-validation-for="Area.Id_Area" class="text-danger"></span>
+                <select name="Area.Id_Area" class="form-control mb-2" asp-items=@ViewBag.Areas></select>
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div id="div-iconeImgForm">
+                    <img id="iconeImgForm" class="foto mb-6 mx-2" src="~/lib/img/icon1.png" alt="Ícone do usuário">
+                </div>
+
+                <label for="Id_Icone" class="control-label">Ícone: </label> <span asp-validation-for="Id_Icone" class="text-danger"></span>
+                <input type="number" name="Id_Icone" id="Id_Icone" class="form-control mb-2" min="1" max="8" value="@Model.Id_Icone" />
+
+                <label for="Pretensao_Salarial" class="control-label">Pretensão Salarial: </label> <span asp-validation-for="Pretensao_Salarial" class="text-danger"></span>
+                <input id="input-salario" type="text" name="Pretensao_Salarial" class="form-control mb-2"  min="0" step="100" value="@Model.Pretensao_Salarial?.ToString("0.00")" />
+            </div>
+
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <label for="Endereco" class="control-label">Endereco: </label>
+                <textarea name="Endereco" class="form-control" rows="4">@Model.Endereco</textarea>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+
+
+        <!--            EXPERIENCIAS PROFISSIONAIS          -->
+
+        <h3 class="titulo-home mb-2">Experiências Profissionais </h3>
+
+        <div id="no-experiencia" class="container alert alert-info" role="alert" style="display:none;">
+            <p>Nenhuma Experiência cadastrada.</p>
+        </div>
+
+        <div id="experiencias-container">
+
+            <!--Template que será usado pelo código-->
+
+            <div id="experiencias-template" style="display:none;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="Id_Experiencia" />
+                        <textarea name="Desc_Experiencia" class="form-control" rows="2"></textarea>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+
+
+            @for (int i = 0; i < Model.Experiencias.Count; i++)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="@($"Experiencias[{i}].Id_Experiencia")" value="@Model.Experiencias[i].Id_Experiencia" />
+                        <textarea name="@($"Experiencias[{i}].Desc_Experiencia")" class="form-control" rows="2">@Model.Experiencias[i].Desc_Experiencia</textarea>
+                        <br>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+        <div class="row div-btn-adicionar-remover">
+            <a class="btn btn-outline-success btn-adicionar-remover" href="javascript:inserirExperiencia()">+</a>
+            <a class="btn btn-outline-danger btn-adicionar-remover" href="javascript:removerExperiencia()">-</a>
+        </div>
+        <br />
+        <br />
+
+
+
+
+        <!--            FORMAÇÕES ACADÊMICAS          -->
+
+        <h3 class="titulo-home mb-2">Formação Acadêmica</h3>
+
+        <div id="no-formacao" class="container alert alert-info" role="alert" style="display:none;">
+            <p>Nenhuma Formação cadastrada.</p>
+        </div>
+
+        <div id="formacoes-container">
+
+            <div id="formacoes-template" style="display:none;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="Id_Formacao" />
+                        <textarea name="Desc_Formacao" class="form-control" rows="2"></textarea>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+
+            @for (int i = 0; i < Model.Formacoes.Count; i++)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="@($"Formacoes[{i}].Id_Formacao")" value="@Model.Formacoes[i].Id_Formacao" />
+                        <textarea name="@($"Formacoes[{i}].Desc_Formacao")" class="form-control" rows="2">@Model.Formacoes[i].Desc_Formacao</textarea>
+                        <br>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="row div-btn-adicionar-remover">
+            <a class="btn btn-outline-success btn-adicionar-remover" href="javascript:inserirFormacao()">+</a>
+            <a class="btn btn-outline-danger btn-adicionar-remover" href="javascript:removerFormacao()">-</a>
+        </div>
+
+
+
+        <!--            IDIOMAS          -->
+
+
+        <h3 class="titulo-home mb-2">Idiomas </h3>
+
+        <div id="no-idioma" class="container alert alert-info" role="alert" style="display:none;">
+            <p>Nenhum Idioma cadastrado.</p>
+        </div>
+
+        <div id="idiomas-container">
+
+            <div id="idiomas-template" style="display:none;">
+                <div class="row mb-2">
+                    <input id="input-hidden" type="hidden" name="Id_Idioma" />
+
+                    <div class="col-md-6">
+                        <label for="Desc_Idioma" class="control-label">Idioma: </label>
+                        <input id="desc_idioma" type="text" name="Desc_Idioma" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="GrauProficiencia" class="control-label">Grau de Proficiencia: </label><br />                        
+                        @Html.DropDownList("ProficienciaAux", null, htmlAttributes: new { @id = "opcoesDropdown", @name = "GrauProficiencia", @class = "form-control" })
+                    </div>
+
+                </div>
+            </div>
+
+            @for (int i = 0; i < Model.Idiomas.Count; i++)
+            {
+                <div class="row mb-2">
+                    <input type="hidden" name="@($"Idiomas[{i}].Id_Idioma")" value="@Model.Idiomas[i].Id_Idioma" />
+
+                    <div class="col-md-6">
+                        <label for="@($"Idiomas[{i}].Desc_Idioma")" class="control-label">Idioma: </label>
+                        <input type="text" name="@($"Idiomas[{i}].Desc_Idioma")" class="form-control" value="@Model.Idiomas[i].Desc_Idioma" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="@($"Idiomas[{i}].GrauProficiencia")" class="control-label">Grau de Proficiencia: </label><br />
+                        @Html.DropDownListFor(m => m.Idiomas[i].GrauProficiencia, new SelectList(Enum.GetValues(typeof(EnumProficienciaIdioma))), htmlAttributes: new { @class = "form-control" })
+                    </div>
+
+                </div>
+            }
+        </div>
+
+
+        <div class="row div-btn-adicionar-remover">
+            <a class="btn btn-outline-success btn-adicionar-remover" href="javascript:inserirIdioma()">+</a>
+            <a class="btn btn-outline-danger btn-adicionar-remover" href="javascript:removerIdioma()">-</a>
+        </div>
+        <br />
+        <br />
+
+
+        <input type="submit" class="btn btn-primary" value="Salvar">
+    </form>
+
+    <br />
+    <script src="~/js/main.js"></script>
+</div>

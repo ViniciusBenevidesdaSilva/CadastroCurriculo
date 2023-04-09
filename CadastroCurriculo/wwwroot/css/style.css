@@ -1,0 +1,219 @@
+﻿@font-face {
+    font-family: 'Poppins';
+    src: url('../lib/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins Bold';
+    src: url('../lib/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins Medium';
+    src: url('../lib/fonts/Poppins-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins Light';
+    src: url('../lib/fonts/Poppins-Light.ttf') format('truetype');
+}
+
+/*  Compartilhado   */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #fcfcfc;
+}
+
+/*  ~/Home/Index.cshtml */
+
+/*  Botão Criar Currículo   */
+#div-btn-criar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#btn-criar {
+    font-family: 'Poppins Bold', sans-serif;
+    width: 150px;
+}
+
+/*  Pesquisa currículos */
+.titulo-home {
+    font-family: 'Poppins Bold', sans-serif;
+}
+
+#cb-area {
+    width: 60%;
+}
+
+#btn-pesquisar {
+    width: 30%;
+}
+
+#div-btn-pesquisar {
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.container-pesquisa {
+    margin: 0 0 50px 0;
+}
+
+#logo-linkedin2 {
+    height: 40px;
+    width: 40px;
+}
+
+/*  Cards   */
+.foto-perfil {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+.card {
+    text-align: center;
+    background-color: white;
+    min-width: 230px;
+}
+
+    .card:hover {
+        text-align: center;
+        background-color: #fbfbfb;
+    }
+
+.card-title {
+    font-family: 'Poppins Medium', sans-serif;
+    height: 50px;
+    overflow: hidden;
+}
+
+.card-subtitle {
+    font-family: 'Poppins Light', sans-serif;
+    font-size: 14px;
+}
+
+.card-buttons {
+    display: inline-block;
+    text-align: center;
+    height: 50px;
+}
+
+.btn-outline-success.btn-redondo {
+    width: 200px;
+}
+
+.btn-redondo {
+    border-radius: 20px;
+    width: 100px;
+}
+
+/*  ~/Home/Impressao.cshtml */
+.div-pagina {
+    width: 920px;
+    margin: auto;
+}
+
+.div-btn-imprimir {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 10px 30px;
+}
+
+.impressao {
+    height: 1300px;
+    box-shadow: 0 .50rem .75rem rgb(0, 0, 0);
+}
+
+.area1 {
+    height: 1300px;
+    width: 40%;
+    float: left;
+    background-color: #020f34;
+}
+
+.area2 {
+    height: 1300px;
+    width: 60%;
+    float: right;
+    background-color: white;
+}
+
+.titulo {
+    background-color: #E1e1e1;
+    height: 250px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#titulo-nome {
+    font-family: 'Poppins Bold', sans-serif;
+    font-size: 40px;
+}
+
+#titulo-cargo {
+    font-family: 'Poppins Light', sans-serif;
+    font-size: 20px;
+}
+
+.subtitulo-branco {
+    color: black;
+    padding: 10px 35px 10px 35px;
+    text-align: justify;
+}
+
+.subtitulo-azul {
+    color: white;
+    padding: 30px 35px 10px 35px;
+    text-align: justify;
+}
+
+.dados-pessoais {
+    font-family: 'Poppins Bold', sans-serif;
+}
+
+.conteudo {
+    padding: 10px 0 10px 10px;
+}
+
+.foto {
+    width: 300px;
+    margin-top: 30px;
+}
+
+.box-impressao {
+    height: 300px;
+    overflow: hidden;
+}
+
+/* FORM */
+
+.btn-adicionar-remover {
+    border-radius: 20px;
+    font-size: 20px;
+    line-height: 30px;
+    width: 45px;
+    margin: 10px 20px 10px 0;
+}
+
+.div-btn-adicionar-remover {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#iconeImgForm {
+    width: 285px;
+}
+
+#div-iconeImgForm {
+    display: flex;
+    justify-content: center;
+}

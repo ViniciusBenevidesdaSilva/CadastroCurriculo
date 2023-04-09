@@ -1,0 +1,160 @@
+﻿@model CurriculoViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Impressão";
+}
+
+<style type="text/css">
+    body {
+        background-color: dimgray;
+    }
+</style>
+
+
+<div class="div-pagina">
+    <div>
+        <div class="div-btn-imprimir">
+            <a class="btn btn-primary mr-4" href="/Home/Editar?id=@Model.Id_Curriculo">Editar</a>
+
+            <input type="button" class="btn btn-primary m-6" onclick="window.print();" value="Imprimir">
+        </div>
+    </div>
+
+    <div id="printableArea" class="impressao">
+
+        <div class="area1">
+            <div>
+                <img class="rounded mx-auto d-block foto" src="@($"/lib/img/icon{Model.Id_Icone}.png")" alt="Ícone do usuário">
+            </div>
+
+            <div class="subtitulo-azul box-impressao">
+                <h3 class="dados-pessoais">DADOS PESSOAIS</h3>
+                <div class="conteudo">
+                    <h5 class="dados-pessoais">CPF</h5>
+                    <p class="mb-4">@Model.CPF</p>
+                    @if (!string.IsNullOrEmpty(Model.Endereco))
+                    {
+                        <h5 class="dados-pessoais">Endereço</h5>
+                        <p class="mb-4">@Model.Endereco</p>
+                    }
+                </div>
+            </div>
+
+            <div class="subtitulo-azul box-impressao">
+                <h3 class="dados-pessoais">CONTATO</h3>
+                <div class="conteudo">
+                    @if (!string.IsNullOrEmpty(Model.Email))
+                    {
+                        <h5 class="dados-pessoais">Email</h5>
+                        <p class="mb-4">@Model.Email</p>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Telefone))
+                    {
+                        <h5 class="dados-pessoais">Telefone</h5>
+                        <p class="mb-4">@Model.Telefone</p>
+                    }
+                </div>
+            </div>
+
+            <div class="subtitulo-azul box-impressao">
+                <h3 class="dados-pessoais">INFORMAÇÕES</h3>
+                <div class="conteudo">
+                    <h5 class="dados-pessoais">Cargo pretendido</h5>
+                    <p class="mb-4">@Model.Cargo_Pretendido</p>
+                    <h5 class="dados-pessoais">Area de Atuação</h5>
+                    <p class="mb-4">@Model.Area.Desc_Area</p>
+                    @if (Model.Pretensao_Salarial != null)
+                    {
+                        <h5 class="dados-pessoais">Pretensão salarial</h5>
+                        <p class="mb-4">R$ @Model.Pretensao_Salarial.Value.ToString("0.00")</p>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="area2">
+            <div class="titulo">
+                <h1 id="titulo-nome">@Model.Nome</h1>
+                <h2 id="titulo-cargo">@Model.Cargo_Pretendido</h2>
+            </div>
+
+            @if (Model.Experiencias.Count > 0)
+            {
+                <div class="subtitulo-branco box-impressao">
+                    <h3 class="dados-pessoais">EXPERIÊNCIA PROFISSIONAL</h3>
+                    <div class="conteudo">
+                        <ul>
+
+                            @foreach (var experiencia in Model.Experiencias)
+                            {
+                                <li class="mb-2">
+                                    <p>@experiencia.Desc_Experiencia</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Formacoes.Count > 0)
+            {
+                <div class="subtitulo-branco box-impressao">
+                    <h3 class="dados-pessoais">FORMAÇÃO ACADÊMICA</h3>
+                    <div class="conteudo">
+                        <ul>
+
+                            @foreach (var formacao in Model.Formacoes)
+                            {
+                                <li class="mb-2">
+                                    <p>@formacao.Desc_Formacao</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Idiomas.Count > 0)
+            {
+                <div class="subtitulo-branco box-impressao">
+                    <h3 class="dados-pessoais">IDIOMAS</h3>
+                    <div class="conteudo">
+                        <ul>
+
+                            @foreach (var idioma in Model.Idiomas)
+                            {
+                                <li class="mb-2">
+                                    <p>
+                                        @idioma.Desc_Idioma
+                                        @switch (idioma.GrauProficiencia)
+                                        {
+                                            case (EnumProficienciaIdioma.Basico):
+                                                <i class="fas fa-circle" style="color: #ff0000;"></i>
+                                                break;
+                                            case (EnumProficienciaIdioma.Intermediario):
+                                                <i class="fas fa-circle" style="color: #ff7b00;"></i>
+                                                <i class="fas fa-circle" style="color: #ff7b00;"></i>
+                                                break;
+                                            case (EnumProficienciaIdioma.Avançado):
+                                                <i class="fas fa-circle" style="color: #00cc22;"></i>
+                                                <i class="fas fa-circle" style="color: #00cc22;"></i>
+                                                <i class="fas fa-circle" style="color: #00cc22;"></i>
+                                                break;
+                                            case (EnumProficienciaIdioma.Fluente):
+                                                <i class="fas fa-star" style="color: #ffea00;"></i>
+                                                <i class="fas fa-star" style="color: #ffea00;"></i>
+                                                <i class="fas fa-star" style="color: #ffea00;"></i>
+                                                <i class="fas fa-star" style="color: #ffea00;"></i>
+                                                break;
+                                        }
+                                    </p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
