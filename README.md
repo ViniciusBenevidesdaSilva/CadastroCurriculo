@@ -33,3 +33,16 @@ Em seguida, configure no arquivo *'DAO > ConexaoDB.cs'* a forma de acesso ao ser
 
 Por fim execute o projeto!
 
+
+## Prints do projeto
+
+> Tela de Cadastro: 
+![print2](https://user-images.githubusercontent.com/105802950/230799218-b51d9992-0b5e-4851-80a4-70717c84bbbe.png)
+
+> Relacionamento tabular:
+![print4](https://user-images.githubusercontent.com/105802950/230799239-e59b15ba-674e-440a-9fc3-7b2ee348cd9d.png)
+
+> Exemplo de Impressão:
+![print5](https://user-images.githubusercontent.com/105802950/230799248-aa3e89f5-8718-45d8-a97a-4a49d630286c.png)
+
+
